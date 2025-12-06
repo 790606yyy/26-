@@ -1,0 +1,17 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin'
+Build target 'bubingdemo'
+compiling freertos.c...
+../Core/Src/freertos.c(140): warning:  #177-D: variable "x"  was declared but never referenced
+      static float x = 1;
+../Core/Src/freertos.c(141): warning:  #177-D: variable "y"  was declared but never referenced
+      static float y = 1;
+../Core/Src/freertos.c(142): warning:  #550-D: variable "sinx"  was set but never used
+      static float sinx;
+../Core/Src/freertos.c(143): warning:  #550-D: variable "cosx"  was set but never used
+      static float cosx;
+../Core/Src/freertos.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=12784 RO-data=2620 RW-data=148 ZI-data=17972  
+FromELF: creating hex file...
+"bubingdemo\bubingdemo.axf" - 0 Error(s), 4 Warning(s).
+Build Time Elapsed:  00:00:02

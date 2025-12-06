@@ -1,0 +1,15 @@
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/timers.c
+bubingdemo\timers.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stdlib.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+bubingdemo\timers.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stddef.h
+bubingdemo\timers.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stdint.h
+bubingdemo\timers.o: ../Core/Inc/FreeRTOSConfig.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
+bubingdemo\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h

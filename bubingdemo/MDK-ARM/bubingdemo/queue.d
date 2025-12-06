@@ -1,0 +1,15 @@
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+bubingdemo\queue.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stdlib.h
+bubingdemo\queue.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\string.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+bubingdemo\queue.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stddef.h
+bubingdemo\queue.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stdint.h
+bubingdemo\queue.o: ../Core/Inc/FreeRTOSConfig.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+bubingdemo\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
