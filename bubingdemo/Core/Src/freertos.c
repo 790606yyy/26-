@@ -24,13 +24,16 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Include */
-#include "arm_math.h"
+/* USER CODE BEGIN Includes */
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+    float sinx;
+    float cosx;
+    int i = 0;
+    int j = 0;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -118,7 +121,8 @@ void MX_FREERTOS_Init(void) {
   myTask03Handle = osThreadCreate(osThread(myTask03), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+  /* add threads, ... */           
+
   /* USER CODE END RTOS_THREADS */
 
 }
@@ -136,14 +140,11 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   while(1)
   {
-    static float x = 1;
-    static float y = 1;
-    static float sinx;
-    static float cosx;
-
-
-    sinx = arm_sin_f32(uwTick / 1000);
-    cosx = arm_cos_f32(uwTick / 1000);
+      sinx = arm_sin_f32((float)(uwTick));
+      cosx = arm_cos_f32((float)(uwTick / 1000));
+      printf("sinx is:%f\n", sinx);
+      printf("cosx is:%f\n", cosx); 
+    
 
     HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_10);
     osDelay(1);
@@ -165,7 +166,7 @@ void StartTask03(void const * argument)
   while(1)
   {     
       HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_12);
-      osDelay(1);
+      osDelay(300);
   }
   /* USER CODE END StartTask03 */
 }
@@ -180,7 +181,7 @@ void StartTask02(void const *argument)
     while (1)
     {
         HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_11);
-        osDelay(1);
+        osDelay(500);
     }
     /* USER CODE END StartTask03 */
 }

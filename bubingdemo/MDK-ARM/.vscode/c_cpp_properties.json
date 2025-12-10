@@ -11,13 +11,11 @@
                 "d:\\RM\\26rm\\bubingdemo\\Middlewares\\Third_Party\\FreeRTOS\\Source\\include",
                 "d:\\RM\\26rm\\bubingdemo\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS",
                 "d:\\RM\\26rm\\bubingdemo\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\RVDS\\ARM_CM4F",
-                "d:\\RM\\26rm\\bubingdemo\\Middlewares\\ST\\ARM\\DSP\\Inc",
                 "d:\\RM\\26rm\\bubingdemo\\MDK-ARM",
                 "d:\\RM\\26rm\\bubingdemo\\Core\\Src",
                 "d:\\RM\\26rm\\bubingdemo\\Drivers\\STM32F4xx_HAL_Driver\\Src",
                 "d:\\RM\\26rm\\bubingdemo\\Middlewares\\Third_Party\\FreeRTOS\\Source",
-                "d:\\RM\\26rm\\bubingdemo\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang",
-                "d:\\RM\\26rm\\bubingdemo\\Middlewares\\ST\\ARM\\DSP\\Lib"
+                "d:\\RM\\26rm\\bubingdemo\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

@@ -31,12 +31,17 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "arm_math.h"
 
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+int fputc(int ch, FILE *f);
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
