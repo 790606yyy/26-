@@ -1,0 +1,11 @@
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\NN\Source\ConcatenationFunctions\arm_concatenation_s8_x.c
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\NN\Include\arm_nnfunctions.h
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\arm_math_types.h
+bubingdemo\arm_concatenation_s8_x.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stdint.h
+bubingdemo\arm_concatenation_s8_x.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\string.h
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\math.h
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\float.h
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\limits.h
+bubingdemo\arm_concatenation_s8_x.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\NN\Include\arm_nn_types.h

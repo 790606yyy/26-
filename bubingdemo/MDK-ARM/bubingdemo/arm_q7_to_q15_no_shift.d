@@ -1,0 +1,15 @@
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\NN\Source\NNSupportFunctions\arm_q7_to_q15_no_shift.c
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\NN\Include\arm_nnsupportfunctions.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\arm_common_tables.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\arm_math_types.h
+bubingdemo\arm_q7_to_q15_no_shift.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stdint.h
+bubingdemo\arm_q7_to_q15_no_shift.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\string.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\math.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\float.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\limits.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\dsp/fast_math_functions.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\arm_math_memory.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\dsp/none.h
+bubingdemo\arm_q7_to_q15_no_shift.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\dsp/utils.h

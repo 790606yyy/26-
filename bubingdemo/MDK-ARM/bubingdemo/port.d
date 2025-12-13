@@ -1,0 +1,12 @@
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+bubingdemo\port.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stddef.h
+bubingdemo\port.o: D:\Keil\keil5.36\MDK-core\ARM\ARMCC\Bin\..\include\stdint.h
+bubingdemo\port.o: ../Core/Inc/FreeRTOSConfig.h
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+bubingdemo\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
