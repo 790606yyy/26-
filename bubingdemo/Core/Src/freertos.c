@@ -25,60 +25,60 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "bsp_can.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
     float sinx;
     float cosx;
-    int i = 0;
-    int j = 0;
-/* USER CODE END PTD */
+    extern can_instance_t *can_instances[CANINSTANCE_NB];
+    extern int idx;
+    /* USER CODE END PTD */
 
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
+    /* Private define ------------------------------------------------------------*/
+    /* USER CODE BEGIN PD */
 
-/* USER CODE END PD */
+    /* USER CODE END PD */
 
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
+    /* Private macro -------------------------------------------------------------*/
+    /* USER CODE BEGIN PM */
 
-/* USER CODE END PM */
+    /* USER CODE END PM */
 
-/* Private variables ---------------------------------------------------------*/
-/* USER CODE BEGIN Variables */
+    /* Private variables ---------------------------------------------------------*/
+    /* USER CODE BEGIN Variables */
 
-/* USER CODE END Variables */
-osThreadId defaultTaskHandle;
-osThreadId myTask02Handle;
-osThreadId myTask03Handle;
+    /* USER CODE END Variables */
+    osThreadId defaultTaskHandle;
+    osThreadId myTask02Handle;
+    osThreadId myTask03Handle;
 
-/* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN FunctionPrototypes */
+    /* Private function prototypes -----------------------------------------------*/
+    /* USER CODE BEGIN FunctionPrototypes */
 
-/* USER CODE END FunctionPrototypes */
+    /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
-extern void StartTask02(void const * argument);
-void StartTask03(void const * argument);
+    void StartDefaultTask(void const *argument);
+    extern void StartTask02(void const *argument);
+    void StartTask03(void const *argument);
 
-void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+    void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
-/* GetIdleTaskMemory prototype (linked to static allocation support) */
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
+    /* GetIdleTaskMemory prototype (linked to static allocation support) */
+    void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize);
 
-/* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
-static StaticTask_t xIdleTaskTCBBuffer;
-static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+    /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
+    static StaticTask_t xIdleTaskTCBBuffer;
+    static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
 
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
-{
-  *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
-  *ppxIdleTaskStackBuffer = &xIdleStack[0];
-  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
-  /* place for user code */
-}
+    void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize)
+    {
+        *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+        *ppxIdleTaskStackBuffer = &xIdleStack[0];
+        *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+        /* place for user code */
+    }
 /* USER CODE END GET_IDLE_TASK_MEMORY */
 
 /**
@@ -144,10 +144,10 @@ void StartDefaultTask(void const * argument)
       cosx = arm_cos_f32((float)(uwTick / 1000));
       printf("sinx is:%f\n", sinx);
       printf("cosx is:%f\n", cosx); 
-    
+      
 
     HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_10);
-    osDelay(1);
+    osDelay(10);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -166,7 +166,13 @@ void StartTask03(void const * argument)
   while(1)
   {     
       HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_12);
-      osDelay(300);
+      for (int i = 0;i < idx;i++)
+      {
+          can_instances[i]->can_txmessage(can_instances[i]);
+          CAN_cmd_gimbal();
+      }
+      
+    osDelay(30);
   }
   /* USER CODE END StartTask03 */
 }
@@ -181,7 +187,7 @@ void StartTask02(void const *argument)
     while (1)
     {
         HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_11);
-        osDelay(500);
+        osDelay(50);
     }
     /* USER CODE END StartTask03 */
 }

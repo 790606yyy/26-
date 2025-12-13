@@ -32,6 +32,7 @@ bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 bubingdemo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
@@ -71,3 +72,5 @@ bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers
 bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+bubingdemo\freertos.o: ..\BSP\bsp_can.h
+bubingdemo\freertos.o: ../Core/Inc/can.h

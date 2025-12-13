@@ -23,6 +23,7 @@ bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 bubingdemo\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
@@ -71,5 +72,7 @@ bubingdemo\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 bubingdemo\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 bubingdemo\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 bubingdemo\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+bubingdemo\main.o: ../Core/Inc/can.h
 bubingdemo\main.o: ../Core/Inc/usart.h
 bubingdemo\main.o: ../Core/Inc/gpio.h
+bubingdemo\main.o: ..\BSP\bsp_can.h
