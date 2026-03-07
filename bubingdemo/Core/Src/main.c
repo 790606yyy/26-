@@ -20,13 +20,16 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "can.h"
+#include "dma.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-#include "bsp_can.h"
+//#include "bsp_can.h"
+//#include "bsp_usart.h"
+//#include "remote.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,7 +62,11 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#include "bsp_can.h"
+#include "remote.h"
+#include "DJI_motor.h"
+#include "imu.h"
+#include "motor.h"
 /* USER CODE END 0 */
 
 /**
@@ -78,7 +85,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+static uint8_t rx_textdata[128] = 0;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -90,13 +97,26 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_CAN1_Init();
+  MX_USART3_UART_Init();
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
     Can_Start();
-    can_textcase();
-    printf("init ok\n");
+//    DJIMotor_inputcase();
+
+        // MycanInit();
+        // can_textcase();
+        //    HAL_UARTEx_ReceiveToIdle_DMA(&huart3, rx_textdata, 128);
+        //    __HAL_DMA_DISABLE_IT(huart3.hdmarx, DMA_IT_HT);
+        //    Can_Start();
+        __disable_irq();
+        remote_register();
+        IMU_Init();
+        Motor_Instance *motor_ins = Motor_Registercase();
+        __enable_irq();
+//    printf("init ok\n");
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -108,12 +128,13 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+    while (1)
+    {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+        // CanMotorTransmit(0x1ff, 5000, 1, 1, 1);              
+    }
   /* USER CODE END 3 */
 }
 
@@ -163,13 +184,13 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-int fputc(int ch, FILE *f)
-{
+//int fputc(int ch, FILE *f)
+//{
 
- HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xffff);
+// HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xffff);
 
- return ch;
-}
+// return ch;
+//}
 /* USER CODE END 4 */
 
 /**

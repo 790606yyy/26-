@@ -72,5 +72,6 @@ bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers
 bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 bubingdemo\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-bubingdemo\freertos.o: ..\BSP\bsp_can.h
+bubingdemo\freertos.o: ../Module/DJI_motor.h
+bubingdemo\freertos.o: ../BSP/bsp_can.h
 bubingdemo\freertos.o: ../Core/Inc/can.h

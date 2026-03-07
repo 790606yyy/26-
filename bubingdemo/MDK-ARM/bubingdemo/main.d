@@ -73,6 +73,15 @@ bubingdemo\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 bubingdemo\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 bubingdemo\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 bubingdemo\main.o: ../Core/Inc/can.h
+bubingdemo\main.o: ../Core/Inc/dma.h
 bubingdemo\main.o: ../Core/Inc/usart.h
 bubingdemo\main.o: ../Core/Inc/gpio.h
-bubingdemo\main.o: ..\BSP\bsp_can.h
+bubingdemo\main.o: ../BSP/bsp_can.h
+bubingdemo\main.o: ../Module/remote.h
+bubingdemo\main.o: ../BSP/bsp_usart.h
+bubingdemo\main.o: ../Module/DJI_motor.h
+bubingdemo\main.o: ../Module/imu.h
+bubingdemo\main.o: ../Module/motor.h
+bubingdemo\main.o: ../Module/pid.h
+bubingdemo\main.o: ../Module/42_motor.h
+bubingdemo\main.o: ../Module/DM_motor.h

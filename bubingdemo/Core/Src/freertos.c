@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -25,60 +25,57 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "bsp_can.h"
+#include "DJI_motor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-    float sinx;
-    float cosx;
-    extern can_instance_t *can_instances[CANINSTANCE_NB];
-    extern int idx;
-    /* USER CODE END PTD */
 
-    /* Private define ------------------------------------------------------------*/
-    /* USER CODE BEGIN PD */
+/* USER CODE END PTD */
 
-    /* USER CODE END PD */
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
 
-    /* Private macro -------------------------------------------------------------*/
-    /* USER CODE BEGIN PM */
+/* USER CODE END PD */
 
-    /* USER CODE END PM */
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
 
-    /* Private variables ---------------------------------------------------------*/
-    /* USER CODE BEGIN Variables */
+/* USER CODE END PM */
 
-    /* USER CODE END Variables */
-    osThreadId defaultTaskHandle;
-    osThreadId myTask02Handle;
-    osThreadId myTask03Handle;
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN Variables */
 
-    /* Private function prototypes -----------------------------------------------*/
-    /* USER CODE BEGIN FunctionPrototypes */
+/* USER CODE END Variables */
+osThreadId defaultTaskHandle;
+osThreadId myTask02Handle;
+osThreadId myTask03Handle;
 
-    /* USER CODE END FunctionPrototypes */
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN FunctionPrototypes */
 
-    void StartDefaultTask(void const *argument);
-    extern void StartTask02(void const *argument);
-    void StartTask03(void const *argument);
+/* USER CODE END FunctionPrototypes */
 
-    void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+void StartDefaultTask(void const * argument);
+extern void StartTask02(void const * argument);
+extern void StartTask03(void const * argument);
 
-    /* GetIdleTaskMemory prototype (linked to static allocation support) */
-    void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize);
+void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
-    /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
-    static StaticTask_t xIdleTaskTCBBuffer;
-    static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+/* GetIdleTaskMemory prototype (linked to static allocation support) */
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
 
-    void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize)
-    {
-        *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
-        *ppxIdleTaskStackBuffer = &xIdleStack[0];
-        *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
-        /* place for user code */
-    }
+/* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
+static StaticTask_t xIdleTaskTCBBuffer;
+static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
+{
+  *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+  *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+  /* place for user code */
+}
 /* USER CODE END GET_IDLE_TASK_MEMORY */
 
 /**
@@ -109,20 +106,19 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 512);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of myTask02 */
-  osThreadDef(myTask02, StartTask02, osPriorityIdle, 0, 512);
+  osThreadDef(myTask02, StartTask02, osPriorityIdle, 0, 128);
   myTask02Handle = osThreadCreate(osThread(myTask02), NULL);
 
   /* definition and creation of myTask03 */
-  osThreadDef(myTask03, StartTask03, osPriorityIdle, 0, 512);
+  osThreadDef(myTask03, StartTask03, osPriorityIdle, 0, 128);
   myTask03Handle = osThreadCreate(osThread(myTask03), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */           
-
+  /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
 }
@@ -138,43 +134,11 @@ void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-  while(1)
+  for(;;)
   {
-      sinx = arm_sin_f32((float)(uwTick));
-      cosx = arm_cos_f32((float)(uwTick / 1000));
-      printf("sinx is:%f\n", sinx);
-      printf("cosx is:%f\n", cosx); 
-      
-
-    HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_10);
-    osDelay(10);
+    vTaskDelay(5);
   }
   /* USER CODE END StartDefaultTask */
-}
-
-/* USER CODE BEGIN Header_StartTask03 */
-/**
-* @brief Function implementing the myTask03 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartTask03 */
-void StartTask03(void const * argument)
-{
-  /* USER CODE BEGIN StartTask03 */
-  /* Infinite loop */
-  while(1)
-  {     
-      HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_12);
-      for (int i = 0;i < idx;i++)
-      {
-          can_instances[i]->can_txmessage(can_instances[i]);
-          CAN_cmd_gimbal();
-      }
-      
-    osDelay(30);
-  }
-  /* USER CODE END StartTask03 */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -182,14 +146,20 @@ void StartTask03(void const * argument)
 
 void StartTask02(void const *argument)
 {
-    /* USER CODE BEGIN StartTask03 */
-    /* Infinite loop */
-    while (1)
+    for (;;)
     {
-        HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_11);
-        osDelay(50);
+        vTaskDelay(5);
     }
-    /* USER CODE END StartTask03 */
+}
+
+void StartTask03(void const *argument)
+{
+    for (;;)
+    {
+        HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_10);
+        // DJIMotor_sendcase();
+        vTaskDelay(50);
+    }
 }
 
 /* USER CODE END Application */

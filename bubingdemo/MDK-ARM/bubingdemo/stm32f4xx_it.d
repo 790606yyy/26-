@@ -59,3 +59,5 @@ bubingdemo\stm32f4xx_it.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\I
 bubingdemo\stm32f4xx_it.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\dsp/filtering_functions.h
 bubingdemo\stm32f4xx_it.o: D:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\Include\dsp/quaternion_math_functions.h
 bubingdemo\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
+bubingdemo\stm32f4xx_it.o: ../BSP/bsp_usart.h
+bubingdemo\stm32f4xx_it.o: ../Core/Inc/usart.h
