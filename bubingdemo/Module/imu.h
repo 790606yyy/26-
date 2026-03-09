@@ -4,7 +4,7 @@
 #include "main.h"
 #include "bsp_usart.h"
 
-#define pi 3.1415926535f
+#define pi 3.1415926536f
 #define rad_2_degree 180.0f/pi
 
 

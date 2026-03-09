@@ -3,10 +3,12 @@
 
 // #include "motor.h"
 #include "bsp_can.h"
-
+#include "main.h"
 #define DCODE_2_ANGLE (360.0f / 8191.0f)
 #define AROUND_ANGLE 360.0f
-
+#define tyre_len 0.152f
+#define radps_2_mps 0.0079587f
+#define code_2_current 0.0012207f
 
 //typedef enum
 //{
@@ -25,12 +27,14 @@ typedef struct DJIMotor_measure_s
 {
     
     float cur_angle;
-    int rspeed;
-    int current;
+    int16_t rspeed;
+    float speed;
+    int16_t current;
+    float tur_current;
                                 
-    int temp;
+    int8_t temp;
     int turn_nb;
-    int dcode;
+    uint16_t dcode;
     float toltal_angle;
     float last_angle;
                                                                                            
@@ -67,6 +71,6 @@ typedef struct
 DJIMotor_Instance *DJIMotor_Register(DJIMotor_config_t *_config);
 int DJIMotor_sendcase(void);
 int DJIMotor_inputcase(void);
-
-
+int DJIMotor_Sendassis(void);
+int DJIMotor_settxbuff(void);
 #endif // !

@@ -67,6 +67,7 @@ void MX_FREERTOS_Init(void);
 #include "DJI_motor.h"
 #include "imu.h"
 #include "motor.h"
+#include "command.h"
 /* USER CODE END 0 */
 
 /**
@@ -82,13 +83,13 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+        HAL_Init();
 
   /* USER CODE BEGIN Init */
-static uint8_t rx_textdata[128] = 0;
+//static uint8_t rx_textdata[128] = 0;
   /* USER CODE END Init */
 
-  /* Configure the system clock */
+  /* Configure the system clock */                              
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
@@ -112,9 +113,14 @@ static uint8_t rx_textdata[128] = 0;
         //    __HAL_DMA_DISABLE_IT(huart3.hdmarx, DMA_IT_HT);
         //    Can_Start();
         __disable_irq();
-        remote_register();
-        IMU_Init();
-        Motor_Instance *motor_ins = Motor_Registercase();
+        // remote_register();
+        // IMU_Init();
+        // Motor_Instance *motor_ins = Motor_Registercase();
+        int init_flag = Comm_init();
+        if (init_flag != 0)
+        {
+            return -1;
+        }
         __enable_irq();
 //    printf("init ok\n");
   /* USER CODE END 2 */

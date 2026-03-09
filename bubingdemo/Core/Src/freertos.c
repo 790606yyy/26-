@@ -136,7 +136,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    vTaskDelay(5);
+    vTaskDelay(50);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -147,8 +147,9 @@ void StartDefaultTask(void const * argument)
 void StartTask02(void const *argument)
 {
     for (;;)
-    {
-        vTaskDelay(5);
+    {   
+        HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_10);
+        vTaskDelay(50);
     }
 }
 
@@ -156,9 +157,10 @@ void StartTask03(void const *argument)
 {
     for (;;)
     {
-        HAL_GPIO_TogglePin(GPIOH, GPIO_PIN_10);
-        // DJIMotor_sendcase();
-        vTaskDelay(50);
+        
+//        DJIMotor_sendcase();
+        Motor_controlcase();
+        vTaskDelay(5);
     }
 }
 

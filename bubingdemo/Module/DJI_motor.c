@@ -43,6 +43,10 @@ uint8_t tx_buff20[8] = {0};
 uint8_t tx_buff1f[8] = {0};
 uint8_t tx_buff2f[8] = {0};
 
+int rspeed_case = 0;
+int current_case_in = 0;
+int current_case_out = 0;
+
 int DJIMotor_InputDcode(void *instance, uint8_t *rxdata)
 {
 
@@ -58,7 +62,18 @@ int DJIMotor_InputDcode(void *instance, uint8_t *rxdata)
 
     _instance->DJIMotor_measure.dcode = (int)((rx_buff[0] << 8) + (rx_buff[1]));
     _instance->DJIMotor_measure.rspeed = (int)((rx_buff[2] << 8) + (rx_buff[3]));
+    if (_instance->DJIMotor_type == M3508)
+    {
+        _instance->DJIMotor_measure.rspeed /= 19.0f;
+    }
+    if (_instance->DJIMotor_type == M2006)
+    {
+        _instance->DJIMotor_measure.rspeed /= 36.0f;
+    }
+
+    _instance->DJIMotor_measure.speed = _instance->DJIMotor_measure.rspeed * radps_2_mps;
     _instance->DJIMotor_measure.current = (int)((rx_buff[4] << 8) + (rx_buff[5]));
+    // _instance->DJIMotor_measure.tur_current = _instance->DJIMotor_measure.current * code_2_current;
     _instance->DJIMotor_measure.temp = (int)rx_buff[6];
 
     _instance->DJIMotor_measure.cur_angle = (float)(_instance->DJIMotor_measure.dcode) * DCODE_2_ANGLE; // 有待优化,确保开启了fpu
@@ -76,6 +91,10 @@ int DJIMotor_InputDcode(void *instance, uint8_t *rxdata)
     _instance->DJIMotor_measure.toltal_angle = (_instance->DJIMotor_measure.turn_nb * AROUND_ANGLE) + _instance->DJIMotor_measure.cur_angle;
     _instance->DJIMotor_measure.last_angle = _instance->DJIMotor_measure.cur_angle;
 
+    //调试用参数，正常应注释
+    rspeed_case = _instance->DJIMotor_measure.rspeed;
+    current_case_in = _instance->DJIMotor_measure.current;
+    
     return 0;
 }
 
@@ -83,6 +102,72 @@ int DJIMotor_InputDcode(void *instance, uint8_t *rxdata)
 int DJIMotor_Output_Init(can_config_t *config)
 {
     return 0;
+}
+
+int DJIMotor_settxbuff(void)
+{
+    for(int i = 0;i < idx;i++)
+    {
+        if (DJIMotor_instances[i] == NULL) return -1;
+        if (DJIMotor_instances[i]->DJIMotor_type == M3508)
+        {
+            if (DJIMotor_instances[i]->DJImotor_id <= 4)
+            {
+                int tx_ptr = DJIMotor_instances[i]->DJImotor_id * 2 - 2;
+                tx_buff20[tx_ptr] = (int)DJIMotor_instances[i]->ref >> 8;
+                tx_buff20[tx_ptr + 1] = (int)DJIMotor_instances[i]->ref;
+                current_case_out = (tx_buff20[tx_ptr] << 8) + tx_buff20[tx_ptr + 1];
+            }
+            if (DJIMotor_instances[i]->DJImotor_id > 4)
+            {
+                int tx_ptr = DJIMotor_instances[i]->DJImotor_id * 2 - 10;
+                tx_buff1f[tx_ptr] = (int)DJIMotor_instances[i]->ref >> 8;
+                tx_buff1f[tx_ptr + 1] = (int)DJIMotor_instances[i]->ref;
+            }
+                
+        }
+        if (DJIMotor_instances[i]->DJIMotor_type == M2006)
+        {
+            if (DJIMotor_instances[i]->DJImotor_id <= 4)
+            {
+                int tx_ptr = DJIMotor_instances[i]->DJImotor_id * 2 - 2;
+                tx_buff20[tx_ptr] = (int)DJIMotor_instances[i]->ref >> 8;
+                tx_buff20[tx_ptr + 1] = (int)DJIMotor_instances[i]->ref;
+            }
+            if (DJIMotor_instances[i]->DJImotor_id > 4)
+            {
+                int tx_ptr = DJIMotor_instances[i]->DJImotor_id * 2 - 10;                
+                tx_buff1f[tx_ptr] = (int)DJIMotor_instances[i]->ref >> 8;
+                tx_buff1f[tx_ptr + 1] = (int)DJIMotor_instances[i]->ref;
+            }
+        }
+        if (DJIMotor_instances[i]->DJIMotor_type == M6020)
+        {
+            if (DJIMotor_instances[i]->DJImotor_id <= 4)
+            {
+                int tx_ptr = DJIMotor_instances[i]->DJImotor_id * 2 - 2;
+                tx_buff1f[tx_ptr] = (int)DJIMotor_instances[i]->ref >> 8;
+                tx_buff1f[tx_ptr + 1] = (int)DJIMotor_instances[i]->ref;
+            }
+            if (DJIMotor_instances[i]->DJImotor_id > 4)
+            {
+                int tx_ptr = DJIMotor_instances[i]->DJImotor_id * 2 - 10;
+                tx_buff2f[tx_ptr] = (int)DJIMotor_instances[i]->ref >> 8;       
+                tx_buff2f[tx_ptr + 1] = (int)DJIMotor_instances[i]->ref;
+            }
+        }
+    }
+    return 0;
+}
+
+int DJIMotor_Sendassis(void)
+{
+    if (DJIMotor_settxbuff() != 0)
+    {
+        return -1;
+    }
+    Can_TxAssist(&hcan1, &DJIMOTOR20_txhead, tx_buff20);
+    Can_TxAssist(&hcan1, &DJIMOTOR1F_txhead, tx_buff1f);
 }
 
 int DJIMotor_sendcase(void)

@@ -63,7 +63,7 @@ void Pid_OutLimited(PID_Instance *_instance)
 
 }
 
-float pid_calculate(PID_Instance *_instance)
+float pid_calculate(PID_Instance *_instance, float measure)
 {
 
     if (_instance == NULL)
@@ -72,7 +72,7 @@ float pid_calculate(PID_Instance *_instance)
         return -1.0f;
     }
 
-    _instance->error = _instance->ref - _instance->measure;
+    _instance->error = _instance->ref - measure;
     _instance->pout = (_instance->kp) * (_instance->error);
     _instance->dout = (_instance->kd) * (_instance->error - _instance->lasterror);
     _instance->iterm = (_instance->ki) * (_instance->error);

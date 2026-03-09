@@ -19,6 +19,7 @@ motor_config_t motor_configcase = {
           .motor_type = DJI_MOTOR,
           .motor_enable_flag = MOTOR_ENABLE,
           .motor_reserveflag = MOTOR_RESERVE_NONE,
+          .ref = 1000,
           .motor_pid_controller = {
               .angle_pid = {
                   .kp = 1,
@@ -27,7 +28,7 @@ motor_config_t motor_configcase = {
                   .Derivative_LPF_RC = 0,
                   .OutPut_LPF_RC = 0.6,
                   .deadline = 0,
-                  .ilimit = 1000,
+                  .ilimit = 3000,
                   .pid_improving = PID_INTEGRAL_LIMIT,
                   .maxout = 100000,
                   .ref = 100,
@@ -39,15 +40,15 @@ motor_config_t motor_configcase = {
                   .Derivative_LPF_RC = 0,
                   .OutPut_LPF_RC = 0.6,
                   .deadline = 0,
-                  .ilimit = 1000,
+                  .ilimit = 3000,
                   .pid_improving = PID_INTEGRAL_LIMIT,
                   .maxout = 100000,
                   .ref = 100,
               },
               .current_pid = {
-                  .kp = 1,
-                  .ki = 0,
-                  .kd = 0,
+                  .kp = 5,
+                  .ki = 0.2,
+                  .kd = 0, 
                   .Derivative_LPF_RC = 0,
                   .OutPut_LPF_RC = 0.6,
                   .deadline = 0,
@@ -79,8 +80,9 @@ motor_config_t motor_configcase = {
                     .rx_id = 0x201,
                 }
           }
-        };
 
+        };
+//float current_case_out = 0;
 Motor_Instance *Motor_Register(motor_config_t * _config)
 {
     if(_config == NULL)
@@ -98,6 +100,7 @@ Motor_Instance *Motor_Register(motor_config_t * _config)
     _instance->motor_type = _config->motor_type;
     _instance->motor_enable_flag  = _config->motor_enable_flag;
     _instance->motor_reserveflag = _config->motor_reserveflag;
+    _instance->ref = _config->ref;
 
     memcpy(&_instance->motor_pid_controller, &_config->motor_pid_controller, sizeof(motor_pid_controller_t));
     memcpy(&_instance->motor_pid_controlparam, &_config->motor_pid_controlparam, sizeof(motor_pid_controlparam_t));
@@ -114,6 +117,10 @@ Motor_Instance *Motor_Register(motor_config_t * _config)
 
     return _instance;
 }
+
+
+
+
 
 Motor_Instance *Motor_Registercase(void)
 {
@@ -132,6 +139,7 @@ Motor_Instance *Motor_Registercase(void)
     _instance->motor_type = motor_configcase.motor_type;
     _instance->motor_enable_flag = motor_configcase.motor_enable_flag;
     _instance->motor_reserveflag = motor_configcase.motor_reserveflag;
+   _instance->ref = motor_configcase.ref;
 
     memcpy(&_instance->motor_pid_controller, &motor_configcase.motor_pid_controller, sizeof(motor_pid_controller_t));
     memcpy(&_instance->motor_pid_controlparam, &motor_configcase.motor_pid_controlparam, sizeof(motor_pid_controlparam_t));
@@ -147,4 +155,118 @@ Motor_Instance *Motor_Registercase(void)
     motor_instances[idx++] = _instance;
 
     return _instance;
+}
+
+
+
+
+
+
+int Motor_Control(void)
+{
+    
+    if (idx == 0)
+    {
+        return -1;
+    }
+
+    for (int i = 0;i < idx;i++)
+    {
+        float ref = motor_instances[i]->ref;
+        float measure = 0;
+        if (motor_instances[i]->motor_type == DJI_MOTOR)
+        {
+            DJIMotor_Instance *Dji_motor = motor_instances[i]->DJI_instance;
+            Dji_motor->ref = ref;
+
+
+            //前馈环节
+            if (motor_instances[i]->motor_feedback_param.motor_feedback_type == MOTOR_ANGLE_FEEDBACK)
+            {
+                if (motor_instances[i]->motor_feedback_controller.angle_sfeedback_ptr == NULL)
+                {
+                    Dji_motor->ref *= motor_instances[i]->motor_feedback_controller.angle_kf;
+                }
+                
+            }
+
+            if (motor_instances[i]->motor_feedback_param.motor_feedback_type == MOTOR_SPEED_FEEDBACK)
+            {
+                if (motor_instances[i]->motor_feedback_controller.speed_sfeedback_ptr == NULL)
+                {
+                    Dji_motor->ref *= motor_instances[i]->motor_feedback_controller.speed_kf;
+                }
+            }
+
+            if (motor_instances[i]->motor_feedback_param.motor_feedback_type == MOTOR_CURRENT_FEEDBACK)
+            {
+                if (motor_instances[i]->motor_feedback_controller.current_sfeedback_ptr == NULL)
+                {
+                    Dji_motor->ref *= motor_instances[i]->motor_feedback_controller.current_kf;
+                }
+            }
+
+            //pid环节
+            
+//            if (motor_instances[i]->motor_pid_controlparam.motor_out_closeloop == ANGLE_LOOP)
+//            {
+//                measure =  Dji_motor->DJIMotor_measure.toltal_angle;
+//                
+//            }
+                
+            if (motor_instances[i]->motor_pid_controlparam.motor_closeloop_type & ANGLE_LOOP)
+            {
+                motor_instances[i]->motor_pid_controller.angle_pid.ref = ref;
+                ref = pid_calculate(&motor_instances[i]->motor_pid_controller.angle_pid, Dji_motor->DJIMotor_measure.toltal_angle);
+            }
+
+            if (motor_instances[i]->motor_pid_controlparam.motor_closeloop_type & SPEED_LOOP)
+            {
+                motor_instances[i]->motor_pid_controller.speed_pid.ref = ref;
+                ref = pid_calculate(&motor_instances[i]->motor_pid_controller.speed_pid, Dji_motor->DJIMotor_measure.rspeed);
+            }
+
+            if (motor_instances[i]->motor_pid_controlparam.motor_closeloop_type & CURRENT_LOOP)
+            {
+                motor_instances[i]->motor_pid_controller.current_pid.ref = ref;
+                ref = pid_calculate(&motor_instances[i]->motor_pid_controller.current_pid, Dji_motor->DJIMotor_measure.current);
+            }
+            
+            //pid + 前馈
+
+            if (motor_instances[i]->motor_feedback_param.motor_feedback_enable_flag == MOTOR_FEEDBACK_ENABLE)
+            {
+                Dji_motor->ref += ref;
+            }
+            else 
+            {
+                Dji_motor->ref = ref;
+            }
+
+            
+
+        }
+
+    }
+
+    //将输出值写入can发送缓冲区 
+    DJIMotor_settxbuff();
+
+    return 0;
+}
+
+int Motor_SetRef(Motor_Instance *_instance, float ref)
+{
+    if (_instance == NULL)
+        return -1;
+    
+    _instance->ref = ref;
+
+    return 0;
+}
+
+int Motor_controlcase()
+{
+    Motor_Control();
+    DJIMotor_Sendassis();
 }

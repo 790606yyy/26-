@@ -130,7 +130,7 @@ int Can_TxAssist( CAN_HandleTypeDef *hcan, CAN_TxHeaderTypeDef *tx_header, uint8
 
     if (HAL_CAN_AddTxMessage(hcan, tx_header, tx_buff, &send_mail_box) != HAL_OK)
     {
-        printf("hal can rx error\n");
+//        printf("hal can rx error\n");
         return 1;
     }
     return 0;

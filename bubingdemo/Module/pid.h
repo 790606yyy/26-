@@ -51,6 +51,6 @@ typedef struct
 
 }PID_Instance;
 
-float pid_calculate(PID_Instance *_instance);
+float pid_calculate(PID_Instance *_instance, float measure);
 
 #endif // !PID_H

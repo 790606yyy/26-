@@ -830,14 +830,14 @@ ARM Macro Assembler    Page 13
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
-interwork --depend=bubingdemo\startup_stm32f407xx.d -obubingdemo\startup_stm32f
-407xx.o -I../Core/Inc -I.\RTE\_bubingdemo -ID:\Keil\keil5.36\MDK-pack\ARM\CMSIS
-\5.8.0\CMSIS\Core\Include -ID:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP
-\Include -ID:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\PrivateInclude -
-ID:\Keil\keil5.36\MDK-pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\ST
-M32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION 
-SETA 536" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --predefi
-ne="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx.s
+interwork --depend=.\bubingdemo\startup_stm32f407xx.d -o.\bubingdemo\startup_st
+m32f407xx.o -I../Core/Inc -I.\RTE\_bubingdemo -ID:\Keil\keil5.36\MDK-pack\ARM\C
+MSIS\5.8.0\CMSIS\Core\Include -ID:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS
+\DSP\Include -ID:\Keil\keil5.36\MDK-pack\ARM\CMSIS\5.8.0\CMSIS\DSP\PrivateInclu
+de -ID:\Keil\keil5.36\MDK-pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\S
+T\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERS
+ION SETA 536" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --pre
+define="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx.s
 
 
 

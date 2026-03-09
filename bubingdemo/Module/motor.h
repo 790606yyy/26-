@@ -16,14 +16,14 @@ typedef enum
 
 typedef enum
 {
-    OPEN_LOOP = 0x0000,
-    ANGLE_LOOP = 0x0001,
-    SPEED_LOOP = 0x0010,
-    CURRENT_LOOP = 0x0100,
+    OPEN_LOOP = 0b0000,
+    ANGLE_LOOP = 0b0100,
+    SPEED_LOOP = 0b0010,
+    CURRENT_LOOP = 0b0001,
 
-    ANGLE_SPEED_LOOP = 0x0110,
-    SPEED_CURRENT_LOOP = 0x0011,
-    ALL_LOOP = 0x0111,
+    ANGLE_SPEED_LOOP = 0b0110,
+    SPEED_CURRENT_LOOP = 0b0011,
+    ALL_LOOP = 0b0111,
 
 }motor_closeloop_type_e;
 
@@ -35,10 +35,10 @@ typedef enum
 
 typedef enum
 {
-    MOTOR_FEEDBACK_NONE = 0x0000,
-    MOTOR_ANGLE_FEEDBACK = 0x0001,
-    MOTOR_SPEED_FEEDBACK = 0x0010,
-    MOTOR_CURRENT_FEEDBACK = 0x0100
+    MOTOR_FEEDBACK_NONE = 0b0000,
+    MOTOR_ANGLE_FEEDBACK = 0b0001,
+    MOTOR_SPEED_FEEDBACK = 0b0010,
+    MOTOR_CURRENT_FEEDBACK = 0b0100
 }motor_feedback_type_e;
 
 typedef enum 
@@ -111,6 +111,7 @@ typedef struct motor_feedback_param_s
 typedef struct motor_config_s
 {
     motor_type_e motor_type;
+    float ref;
 
     motor_pid_controller_t motor_pid_controller;
     motor_pid_controlparam_t motor_pid_controlparam;
@@ -129,6 +130,7 @@ typedef struct motor_config_s
 typedef struct 
 {
     motor_type_e motor_type;
+    float ref;
 
     motor_pid_controller_t motor_pid_controller;
     motor_pid_controlparam_t motor_pid_controlparam;
@@ -140,11 +142,13 @@ typedef struct
 
     DJIMotor_Instance *DJI_instance;
     F42Motor_Instance *F42_Instance;
-    DMMotor_Instance *DM_Instance
+    DMMotor_Instance *DM_Instance;
+    void *ainstance;
 }Motor_Instance;
 
 Motor_Instance *Motor_Register(motor_config_t *_config);
 Motor_Instance *Motor_Registercase(void);
+int Motor_controlcase(void);
 
 #endif // !__MOTOR_H
 
